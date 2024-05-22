@@ -1,15 +1,17 @@
 plugins {
     id("com.android.application")
+    //Naf-firebase
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.nafsoft.aspireacademy"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.nafsoft.aspireacademy"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -39,4 +41,14 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    //Naf-firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    //Naf-authentication
+    implementation("com.google.firebase:firebase-auth")
+    //Naf-lotte animation
+    implementation ("com.airbnb.android:lottie:6.4.0")
+
+
+
 }
