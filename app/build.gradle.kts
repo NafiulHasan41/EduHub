@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.nafsoft.aspireacademy"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.nafsoft.aspireacademy"
