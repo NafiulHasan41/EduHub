@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#43A1F3">
+        android:background="#CEF0F4">
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieBook"
             android:layout_width="400dp"
@@ -20,8 +20,10 @@
             android:layout_margin="10dp"
             android:elevation="10dp"
             android:layout_marginTop="5dp"
-            app:lottie_rawRes="@raw/splash"
-            app:lottie_autoPlay="true"/>
+            app:lottie_rawRes="@raw/splash1"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieProgress"
@@ -32,6 +34,7 @@
             android:layout_marginBottom="10dp"
             android:elevation="10dp"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/animation_lo1swiw4" />
 
     </RelativeLayout>
