@@ -1,6 +1,8 @@
 package com.nafsoft.aspireacademy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,17 +12,20 @@ import android.widget.Button;
 import com.nafsoft.aspireacademy.examsection.views.ListFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private Button examcorner;
+
+    private Button newButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        examcorner=findViewById(R.id.examCorner);
-        examcorner.setOnClickListener(new View.OnClickListener() {
+        newButton=findViewById(R.id.gotoFragment);
+        newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(MainActivity.this, ListFragment.class);
-                startActivity(intent);
+                newButton.setVisibility(View.GONE);
+                Fragment listFrag= new ListFragment();
+                FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.mainContainer,listFrag).commit();
             }
         });
     }
