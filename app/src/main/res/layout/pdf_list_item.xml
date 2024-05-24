@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:layout_marginTop="35dp"
+    >
 
     <ImageView
         android:id="@+id/pdfThumbnail"
@@ -12,6 +14,7 @@
         android:layout_gravity="center"
         android:contentDescription="PDF Thumbnail"
         android:scaleType="centerInside"
+        android:layout_marginTop="15dp"
         android:src="@drawable/pdf_placeholder" />
 
     <TextView
