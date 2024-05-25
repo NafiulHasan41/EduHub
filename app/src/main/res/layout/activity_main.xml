@@ -144,7 +144,7 @@
                             android:cropToPadding="true"
                             android:maxWidth="130dp"
                             android:contentDescription="Admission"
-                            android:src="@drawable/admission1" />
+                            android:src="@drawable/admission2" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -190,9 +190,9 @@
                             android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:cropToPadding="true"
-                            android:maxWidth="70dp"
+                            android:maxWidth="120dp"
                             android:contentDescription="HSC"
-                            android:src="@drawable/hsc" />
+                            android:src="@drawable/admission1" />
 
                         <TextView
                             android:layout_width="wrap_content"
