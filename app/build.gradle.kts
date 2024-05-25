@@ -59,7 +59,7 @@ dependencies {
 
     //Brinto
     implementation("com.google.firebase:firebase-storage:21.0.0")
-//    implementation ("com.github.barteksc:android-pdf-viewer:3.2.0-beta.1")
+    implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
     //Naf-firebase

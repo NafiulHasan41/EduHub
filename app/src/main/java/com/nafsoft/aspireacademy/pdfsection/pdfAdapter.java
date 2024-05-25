@@ -78,7 +78,7 @@ public class pdfAdapter extends RecyclerView.Adapter<pdfAdapter.ViewHolder> {
                     int position=getAbsoluteAdapterPosition();
                     if(position!=RecyclerView.NO_POSITION)
                     {
-                        downloadAndOpen(position);
+                        openPDF(urls.get(position));
                     }
  ///                   int position=recyclerView.getChildLayoutPosition(v);
 //                    Intent intent=new Intent();
@@ -90,26 +90,10 @@ public class pdfAdapter extends RecyclerView.Adapter<pdfAdapter.ViewHolder> {
         }
     }
 
-    private void downloadAndOpen(int position) {
-        // Get a reference to the PDF file in Firebase Storage
-        StorageReference pdfRef = storage.getReference().child("pdfSection").child(urls.get(position));
-
-        // Create a temporary file to store the downloaded PDF
-        try {
-            final File localFile = File.createTempFile("temp_pdf", "pdf");
-            pdfRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                // Open the downloaded PDF file using an intent
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(localFile), "application/pdf");
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
-            }).addOnFailureListener(e -> {
-                // Handle any errors that may occur during the download process
-                Toast.makeText(context, "Failed to download PDF", Toast.LENGTH_SHORT).show();
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void openPDF(String url) {
+        Intent intent = new Intent(context, PDFViewerActivity.class);
+        intent.putExtra("PDF_URL", url);
+        context.startActivity(intent);
     }
 
 }

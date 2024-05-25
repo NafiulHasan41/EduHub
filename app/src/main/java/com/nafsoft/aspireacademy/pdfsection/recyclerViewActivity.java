@@ -51,22 +51,7 @@ public class recyclerViewActivity extends AppCompatActivity {
             String fileName = fileNames.get(i);
             String url = urls.get(i);
 
-            // Create a StorageReference to the PDF file in Firebase Storage
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("pdfSection").child(fileName);
-
-            // Download the PDF file
-            try {
-                File localFile = File.createTempFile("temp_pdf", "pdf");
-                storageRef.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
-                    // Add the downloaded PDF file to the RecyclerView adapter
-                    adapter.update(fileName, localFile.getAbsolutePath());
-                }).addOnFailureListener(e -> {
-                    // Handle any errors that may occur during the download process
-                    Toast.makeText(this, "Failed to download PDF: " + fileName, Toast.LENGTH_SHORT).show();
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            adapter.update(fileName, url);
         }
     }
 }
