@@ -76,7 +76,7 @@
             app:argType="string"
             android:defaultValue="null" />
         <argument
-            android:name="totalQuesCount"
+            android:name="totalQueCount"
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>

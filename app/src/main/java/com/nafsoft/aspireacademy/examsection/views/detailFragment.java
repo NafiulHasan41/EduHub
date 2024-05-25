@@ -31,6 +31,7 @@ public class detailFragment extends Fragment {
     private TextView title;
     private TextView totalQuestions;
     private Button startExamBtn;
+
     private NavController navController;
     private int position;
     private ProgressBar progressBar;
@@ -61,6 +62,8 @@ public class detailFragment extends Fragment {
         progressBar = view.findViewById(R.id.detailProgressBar);
         topicImage =view.findViewById(R.id.detailFragmentImage);
         navController = Navigation.findNavController(view);
+
+
         position=detailFragmentArgs.fromBundle(getArguments()).getPosition();
         viewModel.getExamListLiveData().observe(getViewLifecycleOwner(), new Observer<List<ExamListModel>>() {
             @Override
@@ -85,7 +88,7 @@ public class detailFragment extends Fragment {
             public void onClick(View v) {
                 detailFragmentDirections.ActionDetailFragmentToQuizFragment action= detailFragmentDirections.actionDetailFragmentToQuizFragment();
                 action.setExamId(ExamId);
-                action.setTotalQuesCount(totalQuescount);
+                action.setTotalQueCount(totalQuescount);
                 navController.navigate(action);
             }
         });

@@ -7,9 +7,7 @@ public class ExamListModel {
     @DocumentId
     private String examId;
     private String Title,Image;
-    private Long Questions;
-
-    public ExamListModel(){}
+    private long Questions;
 
     public String getExamId() {
         return examId;
@@ -23,29 +21,32 @@ public class ExamListModel {
         return Title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setTitle(String title) {
+        this.Title = title;
     }
 
     public String getImage() {
         return Image;
     }
 
-    public void setImage(String Image) {
-        this.Image = Image;
+    public void setImage(String image) {
+        this.Image = image;
     }
 
-    public Long getQuestions() {
+    public long getQuestions() {
         return Questions;
     }
 
-    public void setQuestions(Long Question) {
-        this.Questions = Question;
+    public void setQuestions(long questions) {
+        this.Questions = questions;
     }
-    public ExamListModel(String examId, String Title, String Image, Long Questions) {
+
+    public ExamListModel(){}
+    public ExamListModel(String examId, String title, String image, String difficulty, long questions) {
         this.examId = examId;
-        this.Title = Title;
-        this.Image = Image;
-        this.Questions = Questions;
+        this.Title = title;
+        this.Image = image;
+
+        this.Questions = questions;
     }
 }
