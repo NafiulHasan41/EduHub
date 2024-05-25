@@ -70,8 +70,6 @@ public class pdfSection extends AppCompatActivity implements PdfAdapter.OnPdfCli
 
         // Enqueue the download request
 
-
-
         if (downloadManager != null) {
             downloadManager.enqueue(request);
             Toast.makeText(context, "Downloading " + file.getName(), Toast.LENGTH_SHORT).show();

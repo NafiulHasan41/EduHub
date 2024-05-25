@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nafsoft.aspireacademy.examsection.views.ListFragment;
+import com.nafsoft.aspireacademy.pdfsection.pdfSection;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button newButton;
+    private Button Readbutton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //Brinto
+        Readbutton=findViewById(R.id.readbtn);
+        Readbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, pdfSection.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
