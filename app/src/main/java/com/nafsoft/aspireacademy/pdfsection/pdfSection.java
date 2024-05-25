@@ -1,32 +1,26 @@
 package com.nafsoft.aspireacademy.pdfsection;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
-
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.nafsoft.aspireacademy.R;
-
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class pdfSection extends AppCompatActivity implements PdfAdapter.OnPdfClickListener{
-
     private RecyclerView recyclerView;
     private PdfAdapter pdfAdapter;
     private List<File> pdfFiles;
