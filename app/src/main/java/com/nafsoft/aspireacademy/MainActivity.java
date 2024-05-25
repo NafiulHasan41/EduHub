@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nafsoft.aspireacademy.Authentication.Login;
+import com.nafsoft.aspireacademy.Authentication.UserUpdate;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -124,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(i);
         }
         else if(getUid == R.id.nav_user){
+
+            Intent i = new Intent(MainActivity.this, UserUpdate.class);
+            startActivity(i);
 
 
         }
