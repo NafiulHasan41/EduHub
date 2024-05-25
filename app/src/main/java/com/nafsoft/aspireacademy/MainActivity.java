@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent i = new Intent(MainActivity.this,MainActivity.class);
             startActivity(i);
         }
+        else if(getUid == R.id.nav_user){
+
+
+        }
         else if(getUid == R.id.nav_logOutDrawer)
         {
 
