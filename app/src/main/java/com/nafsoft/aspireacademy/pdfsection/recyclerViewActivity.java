@@ -38,6 +38,10 @@ public class recyclerViewActivity extends AppCompatActivity {
         fetchPDFFiles();
     }
 
+    //The recyclerViewActivity class fetches PDF files from the data source (e.g., Firebase Storage).
+    //The pdfAdapter instances are the observers.
+    //The recyclerViewActivity class acts as the subject or observable.
+
     private void fetchPDFFiles() {
         // List of file names and URLs (replace this with your actual logic)
         List<String> fileNames = Arrays.asList("A2_Test2.pdf", "ece-lab-04.pdf","CSE 3120 lab-02.pdf","ECE-5.pdf","Turing Machine.pdf","Finite State Machine.pdf","Regular Expression.pdf");
@@ -60,4 +64,6 @@ public class recyclerViewActivity extends AppCompatActivity {
             adapter.update(fileName, url);
         }
     }
+    //observer pattern
+
 }

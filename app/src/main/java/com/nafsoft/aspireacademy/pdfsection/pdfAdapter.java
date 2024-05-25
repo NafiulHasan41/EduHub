@@ -19,6 +19,10 @@ import com.nafsoft.aspireacademy.R;
 import java.io.File;
 import java.util.ArrayList;
 
+
+//We define a class pdfAdapter that extends RecyclerView.Adapter<pdfAdapter.ViewHolder>.
+// This is a typical implementation of the Adapter pattern for RecyclerViews.
+
 public class pdfAdapter extends RecyclerView.Adapter<pdfAdapter.ViewHolder> {
 
     RecyclerView  recyclerView;
