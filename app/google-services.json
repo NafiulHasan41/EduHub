@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1019305072681",
+    "project_id": "aspireacademy-software-project",
+    "storage_bucket": "aspireacademy-software-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019305072681:android:84db85cc5706b380afa438",
+        "android_client_info": {
+          "package_name": "com.nafsoft.aspireacademy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfPf_aLD0b09rvJL8olSqJcbt9eFHI_xU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
