@@ -15,13 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nafsoft.aspireacademy.R;
-import com.nafsoft.aspireacademy.examsection.views.viewmodel.AuthViewModel;
+import com.nafsoft.aspireacademy.examsection.views.viewmodel.ExamListViewModel;
 
 public class splashFragment extends Fragment {
 
-    private AuthViewModel viewModel;
-    private NavController navController;
 
+    private NavController navController;
+    private ExamListViewModel viewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class splashFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this , ViewModelProvider.AndroidViewModelFactory
-                .getInstance(getActivity().getApplication())).get(AuthViewModel.class);
+                .getInstance(getActivity().getApplication())).get(ExamListViewModel.class);
         navController = Navigation.findNavController(view);
     }
 
@@ -46,11 +46,11 @@ public class splashFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (viewModel.getCurrentUser() != null){
+//                if (viewModel.getCurrentUser() != null){
                     navController.navigate(R.id.action_splashFragment_to_listFragment);
-                }else{
-                    navController.navigate(R.id.action_splashFragment_to_loginFragment);
-                }
+//                }else{
+//                    navController.navigate(R.id.action_splashFragment_to_listFragment);
+//                }
             }
         }, 4000);
 

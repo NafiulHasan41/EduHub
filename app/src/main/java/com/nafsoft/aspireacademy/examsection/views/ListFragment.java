@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import com.nafsoft.aspireacademy.R;
 import com.nafsoft.aspireacademy.examsection.views.Adapter.ExamListAdapter;
 import com.nafsoft.aspireacademy.examsection.views.Model.ExamListModel;
-import com.nafsoft.aspireacademy.examsection.views.viewmodel.AuthViewModel;
 import com.nafsoft.aspireacademy.examsection.views.viewmodel.ExamListViewModel;
 
 import java.util.List;

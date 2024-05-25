@@ -32,7 +32,7 @@ import org.w3c.dom.Text;
 import java.util.HashMap;
 import java.util.List;
 
-public class quizFragment extends Fragment {
+public class quizFragment extends Fragment implements View.OnClickListener {
 
     private QuestionViewModel viewModel;
     private NavController navController;
@@ -41,7 +41,15 @@ public class quizFragment extends Fragment {
     private TextView questionTv, ansFeedBackTv, questionNumberTv, timerCountTv;
     private ImageView closeQuizBtn;
     private String examId;
-
+    private long totalQuestions;
+    private int currentQueNo=0;
+    private boolean canAnswer=false;
+    private long timer;
+    private CountDownTimer countDownTimer;
+    private int correctAnswer=0;
+    private int wrongAnswer=0;
+    private int notAnswerd=0;
+    private String answer="";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +78,19 @@ public class quizFragment extends Fragment {
         questionNumberTv = view.findViewById(R.id.quizQuestionsCount);
         progressBar = view.findViewById(R.id.quizCoutProgressBar);
         examId = quizFragmentArgs.fromBundle(getArguments()).getExamId();
+        totalQuestions=quizFragmentArgs.fromBundle(getArguments()).getTotalQueCount();
         viewModel.setExamId(examId);
+        viewModel.getQuestions();
+        option1Btn.setOnClickListener(this);
+        option2Btn.setOnClickListener(this);
+        option3Btn.setOnClickListener(this);
+        nextQueBtn.setOnClickListener(this);
+        closeQuizBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_quizFragment_to_listFragment);
+            }
+        });
         loadData();
     }
 
@@ -92,14 +112,114 @@ public class quizFragment extends Fragment {
         nextQueBtn.setVisibility(View.INVISIBLE);
     }
     private void loadQuestions(int i){
+        currentQueNo=i;
         viewModel.getQuestionMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<QuestionModel>>() {
             @Override
             public void onChanged(List<QuestionModel> questionModels) {
-                questionTv.setText(questionModels.get(i-1).getQuestion());
-                option1Btn.setText(questionModels.get(i-1).getOption_a());
-                option2Btn.setText(questionModels.get(i-1).getOption_b());
-                option3Btn.setText(questionModels.get(i-1).getOption_c());
+                questionTv.setText(String.valueOf(currentQueNo) + ") " + questionModels.get(i - 1).getQuestion());
+                option1Btn.setText(questionModels.get(i - 1).getOption_a());
+                option2Btn.setText(questionModels.get(i - 1).getOption_b());
+                option3Btn.setText(questionModels.get(i - 1).getOption_c());
+                timer = questionModels.get(i-1).getTimer();
+                answer = questionModels.get(i-1).getAnswer();
+
+                //todo set current que no, to que number tv
+                questionNumberTv.setText(String.valueOf(currentQueNo));
+                startTimer();
             }
         });
+        canAnswer=true;
+    }
+    private void startTimer() {
+        timerCountTv.setText(String.valueOf(timer));
+        progressBar.setVisibility(View.VISIBLE);
+        countDownTimer = new CountDownTimer(timer * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerCountTv.setText(String.valueOf(millisUntilFinished / 1000));
+                long elapsed = timer * 1000 - millisUntilFinished;
+                int percent = (int) ((elapsed * 100) / (timer * 1000));
+                progressBar.setProgress(percent);
+            }
+
+            @Override
+            public void onFinish() {
+                canAnswer = false;
+                ansFeedBackTv.setText("Times Up !!");
+                notAnswerd++;
+                showNextBtn();
+            }
+        }.start();
+    }
+
+    private void showNextBtn()
+    {
+        if (currentQueNo == totalQuestions){
+            nextQueBtn.setText("Submit");
+            nextQueBtn.setEnabled(true);
+            nextQueBtn.setVisibility(View.VISIBLE);
+        }else{
+            nextQueBtn.setVisibility(View.VISIBLE);
+            nextQueBtn.setEnabled(true);
+            ansFeedBackTv.setVisibility(View.VISIBLE);
+        }
+    }
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.option1Btn) {
+            verifyAnswer(option1Btn);
+        } else if (id == R.id.option2Btn) {
+            verifyAnswer(option2Btn);
+        } else if (id == R.id.option3Btn) {
+            verifyAnswer(option3Btn);
+        } else if (id == R.id.nextQueBtn) {
+            if (currentQueNo == totalQuestions){
+                submitResults();
+            }else{
+                currentQueNo++;
+                loadQuestions(currentQueNo);
+                resetOptions();
+            }
+        }
+    }
+    private void resetOptions()
+    {
+        ansFeedBackTv.setVisibility(View.INVISIBLE);
+        nextQueBtn.setVisibility(View.INVISIBLE);
+        nextQueBtn.setEnabled(false);
+        option1Btn.setBackground(ContextCompat.getDrawable(getContext() , R.color.light_sky));
+        option2Btn.setBackground(ContextCompat.getDrawable(getContext() , R.color.light_sky));
+        option3Btn.setBackground(ContextCompat.getDrawable(getContext() , R.color.light_sky));
+    }
+    private void verifyAnswer(Button button)
+    {
+        if(canAnswer)
+        {
+            if(answer.equals(button.getText())){
+                button.setBackground(ContextCompat.getDrawable(getContext(),R.color.greensha));
+                correctAnswer++;
+                ansFeedBackTv.setText("Correct Answer");
+            }
+            else {
+                button.setBackground(ContextCompat.getDrawable(getContext(),R.color.redsha));
+                ansFeedBackTv.setText("wrong answer\nCorrect Answer: "+ answer);
+                wrongAnswer++;
+            }
+        }
+        canAnswer=false;
+        countDownTimer.cancel();
+        showNextBtn();
+    }
+    private void submitResults(){
+        HashMap<String,Object> resultMap= new HashMap<>();
+        resultMap.put("correct",correctAnswer);
+        resultMap.put("wrong",wrongAnswer);
+        resultMap.put("not answered", notAnswerd);
+        viewModel.addResults(resultMap);
+        quizFragmentDirections.ActionQuizFragmentToResultFragment action=
+                quizFragmentDirections.actionQuizFragmentToResultFragment();
+        action.setExamId(examId);
+        navController.navigate(action);
     }
 }

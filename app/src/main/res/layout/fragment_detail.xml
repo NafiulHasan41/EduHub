@@ -67,7 +67,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/light_sky"
-        android:text="Start Quiz"
+        android:text="Start Exam"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
