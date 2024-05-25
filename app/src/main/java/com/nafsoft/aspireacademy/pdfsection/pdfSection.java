@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -28,6 +31,7 @@ public class pdfSection extends AppCompatActivity implements PdfAdapter.OnPdfCli
     private PdfAdapter pdfAdapter;
     private List<File> pdfFiles;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +48,7 @@ public class pdfSection extends AppCompatActivity implements PdfAdapter.OnPdfCli
     }
 
     private void fetchPdfsFromFirebase() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("pdfs");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("pdfSection");
         storageReference.listAll().addOnSuccessListener(listResult -> {
             for (StorageReference item : listResult.getItems()) {
                 item.getDownloadUrl().addOnSuccessListener(uri -> {
@@ -52,7 +56,7 @@ public class pdfSection extends AppCompatActivity implements PdfAdapter.OnPdfCli
                     item.getFile(localFile).addOnSuccessListener(taskSnapshot -> {
                         pdfFiles.add(localFile);
                         pdfAdapter.notifyDataSetChanged();
-                    }).addOnFailureListener(e -> Log.e("PdfSection", "Failed to download file", e));
+                    }).addOnFailureListener(e -> Log.e("pdfSection", "Failed to download file", e));
                 });
             }
         }).addOnFailureListener(e -> Toast.makeText(pdfSection.this, "Failed to fetch PDFs", Toast.LENGTH_SHORT).show());
@@ -60,8 +64,26 @@ public class pdfSection extends AppCompatActivity implements PdfAdapter.OnPdfCli
 
     @Override
     public void onPdfClick(File file) {
-        // Implement download logic or open PDF logic here
-        Toast.makeText(this, "Downloading " + file.getName(), Toast.LENGTH_SHORT).show();
+
+        Context context=null;
+        // Implement download logic
+        DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.fromFile(file);
+
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, file.getName());
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        // Enqueue the download request
+
+
+
+        if (downloadManager != null) {
+            downloadManager.enqueue(request);
+            Toast.makeText(context, "Downloading " + file.getName(), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Failed to initiate download", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

@@ -29,6 +29,7 @@ public class PdfAdapter extends RecyclerView.Adapter<PdfAdapter.PdfViewHolder> {
         void onPdfClick(File file);
     }
 
+
     public PdfAdapter(Context context, List<File> pdfFiles, OnPdfClickListener listener) {
         this.context = context;
         this.pdfFiles = pdfFiles;

@@ -28,5 +28,9 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.mainContainer,listFrag).commit();
             }
         });
+
+
+
+
     }
 }
