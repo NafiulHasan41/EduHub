@@ -26,7 +26,7 @@ import com.nafsoft.aspireacademy.Authentication.Login;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
-    public TextView userEmail, userName , seeAllCourse , userHomeName ;
+    public TextView userEmail, userName ,  userHomeName ;
     public CardView   admission , hsc ,ssc ;
 
     FirebaseDatabase database;
@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        seeAllCourse = findViewById(R.id.allCurses);
         admission = findViewById(R.id.admissionCard);
         hsc = findViewById(R.id.hscCard);
         ssc = findViewById(R.id.sscCard);
@@ -82,6 +81,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //end of drawer
+
+        /*
+        * Now I will handle all the card click event which is
+        * */
+
+        admission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this , CourseDetails.class);
+                startActivity(i);
+            }
+        });
+        hsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Upcoming HSC section", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ssc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(MainActivity.this, "Upcoming SSC section", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

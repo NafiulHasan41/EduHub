@@ -101,16 +101,6 @@
                 android:text="Popular Courses"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/allCurses"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/blue"
-                android:textSize="24sp"
-                android:text="See All"
-                android:textStyle="bold" />
 
         </RelativeLayout>
 
