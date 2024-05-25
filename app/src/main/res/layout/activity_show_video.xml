@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context=".videosection.ShowVideo">
+    tools:context=".videosection.ShowVideo"
+    android:id="@+id/showVideoLayout"
+    >
 
     <VideoView
         android:id="@+id/videoView"

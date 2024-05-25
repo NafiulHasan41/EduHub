@@ -1,17 +1,15 @@
 package com.nafsoft.aspireacademy.videosection;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
-
 import com.nafsoft.aspireacademy.R;
 
 public class VideoHome extends AppCompatActivity {
 
-     View classOne;
+    View classOne;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +20,13 @@ public class VideoHome extends AppCompatActivity {
         classOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(VideoHome.this , ShowVideo.class);
-                startActivity(i);
+                handleClassOneClick(VideoHome.this);
             }
         });
+    }
 
-
+    public void handleClassOneClick(Context context) {
+        Intent intent = new Intent(context, ShowVideo.class);
+        context.startActivity(intent);
     }
 }
