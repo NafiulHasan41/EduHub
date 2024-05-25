@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AspireAcademy"
         tools:targetApi="31">
         <activity
+            android:name=".Authentication.forgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".Authentication.SignUp"
             android:exported="false" />
         <activity
@@ -31,7 +34,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

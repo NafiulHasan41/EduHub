@@ -46,6 +46,11 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     //Naf-authentication
     implementation("com.google.firebase:firebase-auth")
+    /*
+    * Naf-this is for firebase realtime database
+    * */
+    implementation("com.google.firebase:firebase-database")
+
     //Naf-lotte animation
     implementation ("com.airbnb.android:lottie:6.4.0")
 
