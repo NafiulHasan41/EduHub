@@ -34,7 +34,7 @@ public class pdfAdapterTest {
 
     @Before
     public void setUp() {
-        context = ApplicationProvider.getApplicationContext();
+
         MockitoAnnotations.initMocks(this);
         // Mock FirebaseStorage instance
         Mockito.when(FirebaseStorage.getInstance()).thenReturn(mockFirebaseStorage);
@@ -52,7 +52,7 @@ public class pdfAdapterTest {
         urls.add("https://example.com/file2.pdf");
         urls.add("https://example.com/file3.pdf");
 
-        pdfAdapter adapter = new pdfAdapter(mockRecyclerView, context, items, urls);
+        pdfAdapter adapter = new pdfAdapter(mockRecyclerView, null, items, urls);
 
         assertEquals(3, adapter.getItemCount());
     }
