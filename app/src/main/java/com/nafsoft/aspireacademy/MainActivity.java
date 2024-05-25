@@ -130,6 +130,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(i);
 
 
+        }else if(getUid == R.id.nav_creator){
+
+            Intent i = new Intent(MainActivity.this, AboutUs.class);
+            startActivity(i);
+
+
         }
         else if(getUid == R.id.nav_logOutDrawer)
         {
