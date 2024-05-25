@@ -1,5 +1,8 @@
 package com.nafsoft.aspireacademy.Authentication;
 
+
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,9 +26,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.nafsoft.aspireacademy.MainActivity;
+
 import com.nafsoft.aspireacademy.R;
 
 public class Login extends AppCompatActivity {
+
+
 
     TextInputEditText email, password;
     Button singIn;
@@ -53,10 +59,13 @@ public class Login extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         email = findViewById(R.id.signInEmail);
         password = findViewById(R.id.signInPassword);
@@ -196,9 +205,7 @@ public class Login extends AppCompatActivity {
         builder.create().show();
     }
 
-
-
-
-
-
 }
+
+
+

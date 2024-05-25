@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,10 +44,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     FirebaseUser firebaseUser;
 
+    private Button newButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         admission = findViewById(R.id.admissionCard);
         hsc = findViewById(R.id.hscCard);
         ssc = findViewById(R.id.sscCard);
@@ -186,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
             builder.create().show();
         }
+
 
     }
 }

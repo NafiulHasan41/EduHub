@@ -1,8 +1,11 @@
 plugins {
     id("com.android.application")
+
     //Naf-firebase
+
     id("com.google.gms.google-services")
 }
+
 
 android {
     namespace = "com.nafsoft.aspireacademy"
@@ -22,8 +25,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -33,20 +36,28 @@ android {
     }
 }
 
-dependencies {
 
+
+dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+
     testImplementation("junit:junit:4.13.2")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+
+
     //Naf-firebase
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     //Naf-authentication
     implementation("com.google.firebase:firebase-auth")
+
+
+
     /*
     * Naf-this is for firebase realtime database
     * */
@@ -57,9 +68,24 @@ dependencies {
 
     //Naf-unit testing
     testImplementation ("androidx.test:core:1.4.0")
+    
+    
+      //Brinto
+    implementation("com.google.firebase:firebase-storage:21.0.0")
+    implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    androidTestImplementation ("androidx.test:runner:1.3.0")
+    testImplementation ("androidx.test:core:1.3.0")
+    testImplementation ("org.mockito:mockito-core:3.6.28")
+    testImplementation ("androidx.test.ext:junit:1.1.2")
+     implementation("androidx.activity:activity:1.8.0")
+
+    implementation("com.google.firebase:firebase-firestore:25.0.0")
+    implementation("com.google.firebase:firebase-database:21.0.0")
 
 
 
 
 
 }
+
