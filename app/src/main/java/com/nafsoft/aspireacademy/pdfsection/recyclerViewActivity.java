@@ -38,7 +38,7 @@ public class recyclerViewActivity extends AppCompatActivity {
         fetchPDFFiles();
     }
 
-    //The recyclerViewActivity class fetches PDF files from the data source (e.g., Firebase Storage).
+    //The recyclerViewActivity class fetches PDF files from the Firebase Storage
     //The pdfAdapter instances are the observers.
     //The recyclerViewActivity class acts as the subject or observable.
 

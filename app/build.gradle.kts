@@ -52,15 +52,18 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-
     //Brinto
     implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation ("com.github.barteksc:android-pdf-viewer:2.8.2")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    androidTestImplementation ("androidx.test:runner:1.3.0")
+    testImplementation ("androidx.test:core:1.3.0")
+    testImplementation ("org.mockito:mockito-core:3.6.28")
+    testImplementation ("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.4.0")
+
+
 
     //Naf-firebase
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
