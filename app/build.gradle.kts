@@ -73,6 +73,9 @@ dependencies {
 
     //Naf-unit testing
     testImplementation ("androidx.test:core:1.4.0")
+    androidTestImplementation ("androidx.test:rules:1.5.0")
+    androidTestImplementation ("androidx.test.espresso:espresso-intents:3.5.1")
+
     
     
       //Brinto
@@ -87,26 +90,6 @@ dependencies {
 
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-database:21.0.0")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
