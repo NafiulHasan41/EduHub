@@ -4,6 +4,10 @@ plugins {
     //Naf-firebase
 
     id("com.google.gms.google-services")
+    //shawcha added
+    id("org.jetbrains.kotlin.android") // Added this to ensure Kotlin plugin is applied
+    id("androidx.navigation.safeargs")
+    //end
 }
 
 
@@ -37,12 +41,12 @@ android {
 }
 
 
+val navVersion = "2.2.1"
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
 
     testImplementation("junit:junit:4.13.2")
 
@@ -66,6 +70,7 @@ dependencies {
     //Naf-lotte animation
     implementation ("com.airbnb.android:lottie:6.4.0")
 
+
     //Naf-unit testing
     testImplementation ("androidx.test:core:1.4.0")
     
@@ -78,7 +83,7 @@ dependencies {
     testImplementation ("androidx.test:core:1.3.0")
     testImplementation ("org.mockito:mockito-core:3.6.28")
     testImplementation ("androidx.test.ext:junit:1.1.2")
-     implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.activity:activity:1.8.0")
 
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-database:21.0.0")
@@ -87,5 +92,39 @@ dependencies {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Shawcha added glide , navigation,safeargs
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("androidx.navigation:navigation-fragment:$navVersion")
+    implementation("androidx.navigation:navigation-ui:$navVersion")
+    implementation("com.google.firebase:firebase-firestore:25.0.0")
+
+
+
 }
+
 

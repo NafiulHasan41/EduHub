@@ -1,60 +1,59 @@
 package com.nafsoft.aspireacademy.examsection.views;
 
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.nafsoft.aspireacademy.R;
+import com.nafsoft.aspireacademy.examsection.views.Model.QuestionModel;
+import com.nafsoft.aspireacademy.examsection.views.viewmodel.ExamListViewModel;
+import com.nafsoft.aspireacademy.examsection.views.viewmodel.QuestionViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link quizFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class quizFragment extends Fragment {
+import org.w3c.dom.Text;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.HashMap;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class quizFragment extends Fragment implements View.OnClickListener {
 
-    public quizFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment quizFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static quizFragment newInstance(String param1, String param2) {
-        quizFragment fragment = new quizFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    private QuestionViewModel viewModel;
+    private NavController navController;
+    private ProgressBar progressBar;
+    private Button option1Btn, option2Btn, option3Btn, nextQueBtn;
+    private TextView questionTv, ansFeedBackTv, questionNumberTv, timerCountTv;
+    private ImageView closeQuizBtn;
+    private String examId;
+    private long totalQuestions;
+    private int currentQueNo=0;
+    private boolean canAnswer=false;
+    private long timer;
+    private CountDownTimer countDownTimer;
+    private int correctAnswer=0;
+    private int wrongAnswer=0;
+    private int notAnswerd=0;
+    private String answer="";
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication())).get(QuestionViewModel.class);
     }
 
     @Override
@@ -62,5 +61,165 @@ public class quizFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_quiz, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+        closeQuizBtn = view.findViewById(R.id.imageView3);
+        option1Btn = view.findViewById(R.id.option1Btn);
+        option2Btn = view.findViewById(R.id.option2Btn);
+        option3Btn = view.findViewById(R.id.option3Btn);
+        nextQueBtn = view.findViewById(R.id.nextQueBtn);
+        ansFeedBackTv = view.findViewById(R.id.ansFeedbackTv);
+        questionTv = view.findViewById(R.id.quizQuestionTv);
+        timerCountTv = view.findViewById(R.id.countTimeQuiz);
+        questionNumberTv = view.findViewById(R.id.quizQuestionsCount);
+        progressBar = view.findViewById(R.id.quizCoutProgressBar);
+        examId = quizFragmentArgs.fromBundle(getArguments()).getExamId();
+        totalQuestions=quizFragmentArgs.fromBundle(getArguments()).getTotalQueCount();
+        viewModel.setExamId(examId);
+        viewModel.getQuestions();
+        option1Btn.setOnClickListener(this);
+        option2Btn.setOnClickListener(this);
+        option3Btn.setOnClickListener(this);
+        nextQueBtn.setOnClickListener(this);
+        closeQuizBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_quizFragment_to_listFragment);
+            }
+        });
+        loadData();
+    }
+
+    private void loadData() {
+        enableOptions();
+        loadQuestions(1);
+    }
+
+    private void enableOptions()
+    {
+        option1Btn.setVisibility(View.VISIBLE);
+        option2Btn.setVisibility(View.VISIBLE);
+        option3Btn.setVisibility(View.VISIBLE);
+        option1Btn.setEnabled(true);
+        option2Btn.setEnabled(true);
+        option3Btn.setEnabled(true);
+
+        ansFeedBackTv.setVisibility(View.INVISIBLE);
+        nextQueBtn.setVisibility(View.INVISIBLE);
+    }
+    private void loadQuestions(int i){
+        currentQueNo=i;
+        viewModel.getQuestionMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<QuestionModel>>() {
+            @Override
+            public void onChanged(List<QuestionModel> questionModels) {
+                questionTv.setText(String.valueOf(currentQueNo) + ") " + questionModels.get(i - 1).getQuestion());
+                option1Btn.setText(questionModels.get(i - 1).getOption_a());
+                option2Btn.setText(questionModels.get(i - 1).getOption_b());
+                option3Btn.setText(questionModels.get(i - 1).getOption_c());
+                timer = questionModels.get(i-1).getTimer();
+                answer = questionModels.get(i-1).getAnswer();
+
+                //todo set current que no, to que number tv
+                questionNumberTv.setText(String.valueOf(currentQueNo));
+                startTimer();
+            }
+        });
+        canAnswer=true;
+    }
+    private void startTimer() {
+        timerCountTv.setText(String.valueOf(timer));
+        progressBar.setVisibility(View.VISIBLE);
+        countDownTimer = new CountDownTimer(timer * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerCountTv.setText(String.valueOf(millisUntilFinished / 1000));
+                long elapsed = timer * 1000 - millisUntilFinished;
+                int percent = (int) ((elapsed * 100) / (timer * 1000));
+                progressBar.setProgress(percent);
+            }
+
+            @Override
+            public void onFinish() {
+                canAnswer = false;
+                ansFeedBackTv.setText("Times Up !!");
+                notAnswerd++;
+                showNextBtn();
+            }
+        }.start();
+    }
+
+    private void showNextBtn()
+    {
+        if (currentQueNo == totalQuestions){
+            nextQueBtn.setText("Submit");
+            nextQueBtn.setEnabled(true);
+            nextQueBtn.setVisibility(View.VISIBLE);
+        }else{
+            nextQueBtn.setVisibility(View.VISIBLE);
+            nextQueBtn.setEnabled(true);
+            ansFeedBackTv.setVisibility(View.VISIBLE);
+        }
+    }
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.option1Btn) {
+            verifyAnswer(option1Btn);
+        } else if (id == R.id.option2Btn) {
+            verifyAnswer(option2Btn);
+        } else if (id == R.id.option3Btn) {
+            verifyAnswer(option3Btn);
+        } else if (id == R.id.nextQueBtn) {
+            if (currentQueNo == totalQuestions){
+                submitResults();
+            }else{
+                currentQueNo++;
+                loadQuestions(currentQueNo);
+                resetOptions();
+            }
+        }
+    }
+    private void resetOptions()
+    {
+        ansFeedBackTv.setVisibility(View.INVISIBLE);
+        nextQueBtn.setVisibility(View.INVISIBLE);
+        nextQueBtn.setEnabled(false);
+        option1Btn.setBackground(ContextCompat.getDrawable(getContext() , R.color.light_sky));
+        option2Btn.setBackground(ContextCompat.getDrawable(getContext() , R.color.light_sky));
+        option3Btn.setBackground(ContextCompat.getDrawable(getContext() , R.color.light_sky));
+    }
+    private void verifyAnswer(Button button)
+    {
+        if(canAnswer)
+        {
+            if(answer.equals(button.getText())){
+                button.setBackground(ContextCompat.getDrawable(getContext(),R.color.greensha));
+                correctAnswer++;
+                ansFeedBackTv.setText("Correct Answer");
+            }
+            else {
+                button.setBackground(ContextCompat.getDrawable(getContext(),R.color.redsha));
+                ansFeedBackTv.setText("wrong answer\nCorrect Answer: "+ answer);
+                wrongAnswer++;
+            }
+        }
+        canAnswer=false;
+        countDownTimer.cancel();
+        showNextBtn();
+    }
+    private void submitResults(){
+        HashMap<String,Object> resultMap= new HashMap<>();
+        resultMap.put("correct",correctAnswer);
+        resultMap.put("wrong",wrongAnswer);
+        resultMap.put("not answered", notAnswerd);
+        viewModel.addResults(resultMap);
+        quizFragmentDirections.ActionQuizFragmentToResultFragment action=
+                quizFragmentDirections.actionQuizFragmentToResultFragment();
+        action.setExamId(examId);
+        navController.navigate(action);
     }
 }

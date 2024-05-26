@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.nafsoft.aspireacademy.examsection.views.ExamHome;
 import com.nafsoft.aspireacademy.videosection.VideoHome;
 
 public class CourseDetails extends AppCompatActivity {
@@ -25,6 +26,13 @@ public class CourseDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(CourseDetails.this , VideoHome.class);
+                startActivity(i);
+            }
+        });
+        exam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CourseDetails.this , ExamHome.class);
                 startActivity(i);
             }
         });

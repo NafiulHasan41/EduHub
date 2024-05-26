@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     FirebaseUser firebaseUser;
 
-    private Button newButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         admission = findViewById(R.id.admissionCard);
         hsc = findViewById(R.id.hscCard);
