@@ -1,4 +1,4 @@
-package com.nafsoft.aspireacademy.pdfsection;
+package com.nafsoft.aspireacademy.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,12 @@ import android.os.Bundle;
 
 import com.nafsoft.aspireacademy.R;
 
-public class pdfSection extends AppCompatActivity {
+public class forgotPassword extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_pdf_section);
+
+        setContentView(R.layout.activity_forgot_password);
     }
 }
